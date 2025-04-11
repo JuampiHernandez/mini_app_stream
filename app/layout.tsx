@@ -10,6 +10,18 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+export const metadata: Metadata = {
+  title: "Builder Score",
+  description: "Check your Talent Protocol Builder Score on Farcaster",
+  manifest: "/.well-known/miniapp-manifest.json",
+  other: {
+    "fc:frame": "vNext",
+    "fc:frame:image": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "fc:frame:button:1": "Check Score",
+    "fc:frame:post_url": "https://mini-app-stream.vercel.app"
+  },
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL;
   return {

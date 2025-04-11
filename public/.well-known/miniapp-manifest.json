@@ -1,0 +1,13 @@
+{
+  "name": "Builder Score",
+  "description": "Check your Talent Protocol Builder Score on Farcaster",
+  "version": "2.0.0",
+  "frames_url": "https://mini-app-stream.vercel.app",
+  "icon_url": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+  "permissions": [
+    "notification:read",
+    "notification:write",
+    "frame:read",
+    "frame:write"
+  ]
+} 
