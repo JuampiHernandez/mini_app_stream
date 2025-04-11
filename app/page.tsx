@@ -37,35 +37,43 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
-        <header className="flex justify-between items-center mb-3 h-11">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold">Builder Score Checker</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            {context?.client && (
-              <div className="text-sm text-[var(--app-accent)]">
-                <Identity className="text-sm">
-                  Connected User
-                </Identity>
-              </div>
+        {/* Header with profile info */}
+        <header className="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
+          <div className="flex items-center gap-3">
+            {context?.user?.pfpUrl && (
+              <img 
+                src={context.user.pfpUrl} 
+                alt="Profile" 
+                className="w-8 h-8 rounded-full"
+              />
             )}
-            {context && !context.client.added && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleAddFrame}
-                className="text-[var(--app-accent)]"
-              >
-                Save Frame
-              </Button>
-            )}
+            <div className="flex flex-col">
+              <span className="font-medium text-sm">
+                {context?.user?.displayName || context?.user?.username}
+              </span>
+              <span className="text-xs text-gray-400">
+                @{context?.user?.username}
+              </span>
+            </div>
           </div>
+          {context && !context.client.added && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleAddFrame}
+              className="text-[var(--app-accent)]"
+            >
+              Save Frame
+            </Button>
+          )}
         </header>
 
         <main className="flex-1 flex flex-col items-center justify-center min-h-[60vh] space-y-8">
+          <h1 className="text-2xl font-bold text-center">Builder Score</h1>
+          
           {score !== null ? (
             <div className="text-center animate-fade-in">
-              <h2 className="text-2xl font-bold mb-4">Your Builder Score</h2>
+              <h2 className="text-xl font-bold mb-4">Your Score</h2>
               <div className="text-6xl font-bold text-[var(--app-accent)]">
                 {score}
               </div>
