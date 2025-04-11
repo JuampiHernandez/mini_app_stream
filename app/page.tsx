@@ -30,9 +30,15 @@ export default function App() {
   const addFrame = useAddFrame();
 
   useEffect(() => {
-    if (!isFrameReady) {
-      setFrameReady();
-    }
+    const initializeApp = async () => {
+      if (!isFrameReady) {
+        // Wait for any initial data loading or setup
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setFrameReady();
+      }
+    };
+    
+    initializeApp();
   }, [setFrameReady, isFrameReady]);
 
   useEffect(() => {

@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Builder Score",
     description: "Check your Talent Protocol Builder Score on Farcaster",
-    manifest: "/.well-known/miniapp-manifest.json",
+    manifest: "/.well-known/farcaster.json",
     other: {
       "fc:frame": JSON.stringify({
         version: "1",
@@ -23,7 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
         buttons: [{ label: "Check Score", action: "post" }],
         post_url: `${URL}/api/webhook`,
         frames_url: URL,
-        image_aspect_ratio: "1.91:1"
+        splash_screen: {
+          image_url: `${URL}/talent_scg_long.svg`,
+          background_color: "#0A0A0A"
+        }
       })
     },
   };
@@ -36,6 +39,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta property="of:accepts:xmtp" content="true" />
+        <meta property="of:version" content="1" />
+        <meta property="of:name" content="Builder Score" />
+        <meta property="of:description" content="Check your Talent Protocol Builder Score on Farcaster" />
+      </head>
       <body className="bg-background">
         <Providers>{children}</Providers>
       </body>
