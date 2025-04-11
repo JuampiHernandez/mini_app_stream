@@ -4,7 +4,7 @@ import {
   useMiniKit,
   useAddFrame,
 } from "@coinbase/onchainkit/minikit";
-import { Identity } from "@coinbase/onchainkit/identity";
+import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
 
@@ -41,11 +41,15 @@ export default function App() {
         <header className="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
           <div className="flex items-center gap-3">
             {context?.user?.pfpUrl && (
-              <img 
-                src={context.user.pfpUrl} 
-                alt="Profile" 
-                className="w-8 h-8 rounded-full"
-              />
+              <div className="relative w-8 h-8">
+                <Image
+                  src={context.user.pfpUrl}
+                  alt="Profile"
+                  fill
+                  className="rounded-full object-cover"
+                  sizes="32px"
+                />
+              </div>
             )}
             <div className="flex flex-col">
               <span className="font-medium text-sm">
