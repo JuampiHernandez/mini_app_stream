@@ -50,7 +50,7 @@ export default function App() {
 
       const data: TalentScore = await response.json();
       return data.score.points;
-    } catch (_) {
+    } catch {
       throw new Error('Error fetching builder score');
     }
   };
