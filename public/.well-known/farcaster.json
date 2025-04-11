@@ -5,14 +5,14 @@
     "signature": "MHg3YTE5YjMwMzNiZWZlMjc5ZTQ3NDAyNTQ0MWUxNWVjNGU4MWE1ZDIyYjFjNGYzMzQ5ZjdmM2VhNjk2MjYyNTZmN2VjNDVjZmNmZTJhZTI2YzE5ZmNiZDc5NmM1YzRjYmY3Njk0ZTFiZjEwZjAyZmYyYWNlYzNlYjhiZWM2MjVlZTFj"
   },
   "frame": {
-    "version": "1",
+    "version": "0.0.0",
     "name": "Builder Score",
     "iconUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
     "homeUrl": "https://mini-app-stream.vercel.app",
     "imageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
     "buttonTitle": "Check Score",
     "splashImageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
-    "splashBackgroundColor": "#0A0A0A",
+    "splashBackgroundColor": "#000000",
     "webhookUrl": "https://mini-app-stream.vercel.app/api/webhook"
   }
 } 
