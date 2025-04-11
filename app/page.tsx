@@ -8,10 +8,18 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
 
+interface TalentScore {
+  score: {
+    points: number;
+    last_calculated_at: string;
+  }
+}
+
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const addFrame = useAddFrame();
 
@@ -25,13 +33,45 @@ export default function App() {
     await addFrame();
   }, [addFrame]);
 
+  const fetchBuilderScore = async (username: string) => {
+    try {
+      const response = await fetch(
+        `https://api.talentprotocol.com/score?id=${username}&account_source=farcaster`,
+        {
+          headers: {
+            'X-API-KEY': process.env.NEXT_PUBLIC_TALENT_PROTOCOL_API_KEY || '',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch builder score');
+      }
+
+      const data: TalentScore = await response.json();
+      return data.score.points;
+    } catch (err) {
+      throw new Error('Error fetching builder score');
+    }
+  };
+
   const handleCheckScore = async () => {
     setLoading(true);
-    // TODO: Implement Talent Protocol API call here
-    setTimeout(() => {
-      setScore(85); // Placeholder score for now
+    setError(null);
+
+    try {
+      if (!context?.user?.username) {
+        throw new Error('No Farcaster username found');
+      }
+
+      const builderScore = await fetchBuilderScore(context.user.username);
+      setScore(builderScore);
+    } catch (err) {
+      setError((err as Error).message);
+      setScore(null);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -83,13 +123,18 @@ export default function App() {
               </div>
             </div>
           ) : (
-            <Button
-              onClick={handleCheckScore}
-              className="bg-[var(--app-accent)] text-white px-8 py-3 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity"
-              disabled={loading}
-            >
-              {loading ? "Checking..." : "Check Score"}
-            </Button>
+            <div className="flex flex-col items-center gap-4">
+              <Button
+                onClick={handleCheckScore}
+                className="bg-[var(--app-accent)] text-white px-8 py-3 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity"
+                disabled={loading}
+              >
+                {loading ? "Checking..." : "Check Score"}
+              </Button>
+              {error && (
+                <p className="text-red-500 text-sm">{error}</p>
+              )}
+            </div>
           )}
 
           {/* Debug section for Farcaster context */}
