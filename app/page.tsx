@@ -7,6 +7,10 @@ import {
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
+import dynamic from "next/dynamic";
+import { useWindowSize } from "react-use";
+
+const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
 interface TalentScore {
   score: {
@@ -20,6 +24,8 @@ export default function App() {
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
 
   const addFrame = useAddFrame();
 
@@ -28,6 +34,14 @@ export default function App() {
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
+
+  useEffect(() => {
+    if (score !== null) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 5000); // Stop confetti after 5 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [score]);
 
   const handleAddFrame = useCallback(async () => {
     await addFrame();
@@ -76,6 +90,15 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen font-sans bg-[#0A0A0A] text-white">
+      {showConfetti && (
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={200}
+          colors={['#A855F7', '#7C3AED', '#6D28D9', '#4C1D95']}
+        />
+      )}
       <div className="w-full max-w-md mx-auto px-4 py-6">
         {/* Header with profile info */}
         <header className="flex justify-between items-center mb-8 pb-3 border-b border-purple-800/30">
