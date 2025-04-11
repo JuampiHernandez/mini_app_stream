@@ -1,13 +1,18 @@
 {
-  "name": "Builder Score",
-  "description": "Check your Talent Protocol Builder Score on Farcaster",
-  "version": "2.0.0",
-  "frames_url": "https://mini-app-stream.vercel.app",
-  "icon_url": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
-  "permissions": [
-    "notification:read",
-    "notification:write",
-    "frame:read",
-    "frame:write"
-  ]
+  "accountAssociation": {
+    "header": "eyJmaWQiOjY3MzAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhCRTE1NjIyNzQ1NkVGY0I1NkZEMDEwMzdGMjNiNWNBNGIxM0QzNkMxIn0",
+    "payload": "eyJkb21haW4iOiJtaW5pLWFwcC1zdHJlYW0udmVyY2VsLmFwcCJ9",
+    "signature": "MHg3YTE5YjMwMzNiZWZlMjc5ZTQ3NDAyNTQ0MWUxNWVjNGU4MWE1ZDIyYjFjNGYzMzQ5ZjdmM2VhNjk2MjYyNTZmN2VjNDVjZmNmZTJhZTI2YzE5ZmNiZDc5NmM1YzRjYmY3Njk0ZTFiZjEwZjAyZmYyYWNlYzNlYjhiZWM2MjVlZTFj"
+  },
+  "frame": {
+    "version": "1",
+    "name": "Builder Score",
+    "iconUrl": "https://mini-app-stream.vercel.app/X_Avatar.svg",
+    "homeUrl": "https://mini-app-stream.vercel.app",
+    "imageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "buttonTitle": "Check Score",
+    "splashImageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "splashBackgroundColor": "#0A0A0A",
+    "webhookUrl": "https://mini-app-stream.vercel.app/api/webhook"
+  }
 } 

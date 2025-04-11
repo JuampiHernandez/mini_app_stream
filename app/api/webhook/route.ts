@@ -6,6 +6,7 @@ import { sendFrameNotification } from "@/lib/notification-client";
 import { http } from "viem";
 import { createPublicClient } from "viem";
 import { optimism } from "viem/chains";
+import { NextRequest } from 'next/server';
 
 const appName = process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME;
 
@@ -58,67 +59,28 @@ function decode(encoded: string) {
   return JSON.parse(Buffer.from(encoded, "base64url").toString("utf-8"));
 }
 
-export async function POST(request: Request) {
-  const requestJson = await request.json();
-
-  const { header: encodedHeader, payload: encodedPayload } = requestJson;
-
-  const headerData = decode(encodedHeader);
-  const event = decode(encodedPayload);
-
-  const { fid, key } = headerData;
-
-  const valid = await verifyFidOwnership(fid, key);
-
-  if (!valid) {
-    return Response.json(
-      { success: false, error: "Invalid FID ownership" },
-      { status: 401 },
-    );
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    
+    // Here you can handle the frame interaction
+    // For now, we'll just return a basic response
+    return new Response(JSON.stringify({
+      message: 'Webhook received'
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({
+      error: 'Invalid request'
+    }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
-
-  switch (event.event) {
-    case "frame_added":
-      console.log(
-        "frame_added",
-        "event.notificationDetails",
-        event.notificationDetails,
-      );
-      if (event.notificationDetails) {
-        await setUserNotificationDetails(fid, event.notificationDetails);
-        await sendFrameNotification({
-          fid,
-          title: `Welcome to ${appName}`,
-          body: `Thank you for adding ${appName}`,
-        });
-      } else {
-        await deleteUserNotificationDetails(fid);
-      }
-
-      break;
-    case "frame_removed": {
-      console.log("frame_removed");
-      await deleteUserNotificationDetails(fid);
-      break;
-    }
-    case "notifications_enabled": {
-      console.log("notifications_enabled", event.notificationDetails);
-      await setUserNotificationDetails(fid, event.notificationDetails);
-      await sendFrameNotification({
-        fid,
-        title: `Welcome to ${appName}`,
-        body: `Thank you for enabling notifications for ${appName}`,
-      });
-
-      break;
-    }
-    case "notifications_disabled": {
-      console.log("notifications_disabled");
-      await deleteUserNotificationDetails(fid);
-
-      break;
-    }
-  }
-
-  return Response.json({ success: true });
 }

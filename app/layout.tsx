@@ -17,10 +17,11 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "Check your Talent Protocol Builder Score on Farcaster",
     manifest: "/.well-known/miniapp-manifest.json",
     other: {
-      "fc:frame": "vNext",
+      "fc:frame": "1",
       "fc:frame:image": `${URL}/talent_scg_long.svg`,
       "fc:frame:button:1": "Check Score",
-      "fc:frame:post_url": URL
+      "fc:frame:post_url": `${URL}/api/webhook`,
+      "fc:frame:image:aspect_ratio": "1.91:1"
     },
   };
 }
