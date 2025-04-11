@@ -38,13 +38,20 @@ export default function App() {
   useEffect(() => {
     if (score !== null) {
       setShowConfetti(true);
-      const timer = setTimeout(() => setShowConfetti(false), 5000); // Stop confetti after 5 seconds
+      const timer = setTimeout(() => setShowConfetti(false), 5000);
       return () => clearTimeout(timer);
     }
   }, [score]);
 
   const handleAddFrame = useCallback(async () => {
-    await addFrame();
+    try {
+      const result = await addFrame();
+      if (result) {
+        console.log('Frame added:', result.url, result.token);
+      }
+    } catch (err) {
+      console.error('Error adding frame:', err);
+    }
   }, [addFrame]);
 
   const fetchBuilderScore = async (username: string) => {

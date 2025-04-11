@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json',
       },
     });
-  } catch (_error) { // Prefix with _ to indicate intentionally unused
+  } catch {
     return new Response(JSON.stringify({
       error: 'Invalid request'
     }), {
