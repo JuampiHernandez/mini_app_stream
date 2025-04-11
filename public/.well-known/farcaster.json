@@ -7,11 +7,12 @@
   "frame": {
     "version": "1",
     "name": "Builder Score",
-    "url": "https://mini-app-stream.vercel.app",
-    "icon_url": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
-    "splash_screen": {
-      "image_url": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
-      "background_color": "#0A0A0A"
-    }
+    "iconUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "homeUrl": "https://mini-app-stream.vercel.app",
+    "imageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "buttonTitle": "Check Score",
+    "splashImageUrl": "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+    "splashBackgroundColor": "#0A0A0A",
+    "webhookUrl": "https://mini-app-stream.vercel.app/api/webhook"
   }
 } 
