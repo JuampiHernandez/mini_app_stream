@@ -10,7 +10,6 @@ import { Button } from "./components/DemoComponents";
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
-  const [frameAdded, setFrameAdded] = useState(false);
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,8 +22,7 @@ export default function App() {
   }, [setFrameReady, isFrameReady]);
 
   const handleAddFrame = useCallback(async () => {
-    const frameAdded = await addFrame();
-    setFrameAdded(Boolean(frameAdded));
+    await addFrame();
   }, [addFrame]);
 
   const handleCheckScore = async () => {
