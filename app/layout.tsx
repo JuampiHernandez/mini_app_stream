@@ -10,7 +10,6 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const URL = process.env.NEXT_PUBLIC_URL || "https://mini-app-stream.vercel.app";
   
   return {
     title: "Builder Score",
