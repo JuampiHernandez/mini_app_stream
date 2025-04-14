@@ -18,14 +18,17 @@ export async function generateMetadata(): Promise<Metadata> {
     manifest: "/.well-known/farcaster.json",
     other: {
       "fc:frame": JSON.stringify({
-        version: "1",
-        image: `${URL}/talent_scg_long.svg`,
-        buttons: [{ label: "Check Score", action: "post" }],
-        post_url: `${URL}/api/webhook`,
-        frames_url: URL,
-        splash_screen: {
-          image_url: `${URL}/talent_scg_long.svg`,
-          background_color: "#0A0A0A"
+        version: "next",
+        imageUrl: "https://mini-app-stream.vercel.app/talent_scg_long.svg",
+        aspectRatio: "3:2",
+        button: {
+          title: "Check Builder Score",
+          action: {
+            type: "launch_frame",
+            name: "Builder Score",
+            url: "https://mini-app-stream.vercel.app",
+            splashImageUrl: "https://mini-app-stream.vercel.app/talent_scg_long.svg"
+          }
         }
       })
     },
